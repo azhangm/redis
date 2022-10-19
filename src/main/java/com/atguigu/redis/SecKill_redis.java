@@ -1,8 +1,10 @@
 package com.atguigu.redis;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.Transaction;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -22,23 +24,40 @@ public class SecKill_redis {
 //		拼接 redis 中保存的key
 		String kcKey = "sk:" + prodid + ":qt";
 		String cgUsers = "sk:" + prodid + ":user";
-
+		System.out.println(uid);
 		Jedis jedis = new Jedis("192.168.6.100");
 //		获取库存
+
+		jedis.watch(kcKey);
 		String s = jedis.get(kcKey);
+
 		if (Integer.parseInt(s) == 0) {
 //				秒杀完毕
-			System.err.println("秒杀完毕,");
+			jedis.close();
+			System.err.println("秒杀失!!!");
 			return false;
 		}
+
+		//		saled库存在Redis缓存扣减的时候，同时只能有一个线程得到执行
 
 //		有库存 减 库存
 //		保存抢购人名单
 
-
-		jedis.decr(kcKey);
-		jedis.sadd(cgUsers,uid);
-		System.err.println("成功");
+//	  开启事务 组队运行
+		Transaction multi = jedis.multi();
+//		jedis.decr(kcKey);
+//		multi.append()
+		multi.decr(kcKey);
+		multi.sadd(cgUsers,uid);
+//		jedis.sadd(cgUsers,uid);
+		List<Object> exec = multi.exec();
+		if (exec == null || exec.size() == 0) {
+			System.err.println("秒杀失败!!!");
+			jedis.close();
+			return false;
+		}
+		System.err.println("秒杀成功");
+		jedis.close();
 		return true;
 	}
 }
