@@ -74,3 +74,17 @@ public class RedisConfig {
 ```
 
 ![img_1.png](img_1.png)
+
+
+操作hahs
+
+```java
+   @Test
+    void testHash(){
+        redisTemplate.opsForHash().put("user:400","name","zm");
+        redisTemplate.opsForHash().put("user:400","age","18");
+        redisTemplate.opsForHash().put("user:400","sno","2013040637");
+        Map<Object, Object> entries = redisTemplate.opsForHash().entries("user:400");
+        System.out.println(entries);
+    }
+```

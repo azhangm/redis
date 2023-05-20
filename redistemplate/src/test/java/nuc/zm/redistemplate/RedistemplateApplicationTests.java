@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @SpringBootTest
 class RedistemplateApplicationTests {
@@ -27,4 +28,12 @@ class RedistemplateApplicationTests {
         System.out.println(o);
     }
 
+    @Test
+    void testHash(){
+        redisTemplate.opsForHash().put("user:400","name","zm");
+        redisTemplate.opsForHash().put("user:400","age","18");
+        redisTemplate.opsForHash().put("user:400","sno","2013040637");
+        Map<Object, Object> entries = redisTemplate.opsForHash().entries("user:400");
+        System.out.println(entries);
+    }
 }
