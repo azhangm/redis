@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/Jedis/pom.xml" />
         <option value="$PROJECT_DIR$/redistemplate/pom.xml" />
+        <option value="$PROJECT_DIR$/comment/pom.xml" />
       </list>
     </option>
   </component>

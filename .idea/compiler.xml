@@ -8,15 +8,18 @@
         <outputRelativeToContentRoot value="true" />
         <module name="redistemplate" />
         <module name="Jedis" />
+        <module name="hm-dianping" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="hm-dianping" target="1.8" />
       <module name="Jedis" target="8" />
       <module name="redistemplate" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hm-dianping" options="-parameters" />
       <module name="redistemplate" options="-parameters" />
     </option>
   </component>
