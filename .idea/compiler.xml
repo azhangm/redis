@@ -6,11 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="redistemplate" />
         <module name="Jedis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Jedis" target="8" />
+      <module name="redistemplate" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="redistemplate" options="-parameters" />
+    </option>
   </component>
 </project>
