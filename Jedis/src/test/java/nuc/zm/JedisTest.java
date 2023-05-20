@@ -10,11 +10,7 @@ public class JedisTest {
     @Before
     public void testInit() {
 //    初始化 Jedis 客户端、声明主机和端口
-        jedis = new Jedis("192.168.66.101",6379);
-        jedis.auth("zhangmeng*0504");
-//      ping pong 心跳机制 检测是否连接成功
-        String ping = jedis.ping();
-        System.out.println("连接成功 ~" + ping);
+        jedis = JedisPoolConnectRedis.getJedis();
     }
 
 
